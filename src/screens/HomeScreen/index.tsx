@@ -1,29 +1,25 @@
 import React from 'react'
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {SafeAreaView, Text, Image ,StatusBar, useColorScheme, View} from 'react-native';
+import {SafeAreaView, Text, Image ,StatusBar, useColorScheme, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import styles from "./styles"
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Collection from '../../components/Collection';
+import {collections} from "../../data/collections"
+
 
 const HomeScreen = () => {
     const isDarkMode = useColorScheme() === 'dark';
-    const backgroundStyle = {
-        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-      };
+
     return (
-        <SafeAreaView  style={backgroundStyle}>
+        <SafeAreaView  >
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <View>
+       
            <View style = {styles.header} >
             <Text style = {styles.header_text}>TOMORII GBENLE</Text>
            </View>
-           <View style = {styles.collections_scroll}>
-            <Image  style = {styles.image} source={require ("../../../assets/img/collection-gallery/playsuits.png")}/>
-           </View>
-         
-           <View style = {styles.image_text_container}>
-           <Text style = {styles.image_text} >Taylor Lauran Collection</Text>
-           </View>
-
-        </View>
+               <FlatList
+               data = {collections}
+               renderItem = {({item}) => <Collection item ={item} />}
+               />       
         </SafeAreaView>
     )
 }
